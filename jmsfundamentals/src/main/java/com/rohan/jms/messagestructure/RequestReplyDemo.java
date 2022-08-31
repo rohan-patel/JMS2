@@ -1,6 +1,7 @@
-package com.rohan.jms.basics;
+package com.rohan.jms.messagestructure;
 
 import javax.jms.JMSContext;
+import javax.jms.JMSConsumer;
 import javax.jms.JMSProducer;
 import javax.jms.Queue;
 import javax.naming.InitialContext;
