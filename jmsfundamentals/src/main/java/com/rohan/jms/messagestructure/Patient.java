@@ -13,7 +13,7 @@ public class Patient implements Serializable {
         return id;
     }
 
-    public void setId() {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -21,7 +21,7 @@ public class Patient implements Serializable {
         return name;
     }
 
-    public void setName() {
+    public void setName(String name) {
         this.name = name;
     }
 }

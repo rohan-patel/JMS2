@@ -48,7 +48,7 @@ public class MessageTypesDemo {
 
 			ObjectMessage objMessage = jmsContext.createObjectMessage();
 			Patient patient = new Patient();
-			patient.setId(132);
+			patient.setId(123);
 			patient.setName("Rohan");
 			objMessage.setObject(patient);
 
