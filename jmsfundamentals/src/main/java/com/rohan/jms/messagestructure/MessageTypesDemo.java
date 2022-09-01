@@ -36,7 +36,7 @@ public class MessageTypesDemo {
 			bytesMessage.writeUTF("Rohan");
 			bytesMessage.writeLong(123l);
 			
-			StreamMessage streamMessage = jmsContext.createBytesMessage();
+			StreamMessage streamMessage = jmsContext.createStreamMessage();
 			streamMessage.writeBoolean(true);
 			streamMessage.writeFloat(22.25f);
 
