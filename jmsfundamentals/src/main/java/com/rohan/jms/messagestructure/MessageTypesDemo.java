@@ -8,14 +8,17 @@ import javax.jms.TextMessage;
 import javax.jms.BytesMessage;
 import javax.jms.StreamMessage;
 import javax.jms.MapMessage;
+import javax.jms.ObjectMessage;
 import javax.jms.Message;
 import javax.jms.JMSException;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import java.util.Map;
 import java.util.HashMap;
 
+import com.rohan.jms.messagestructure.Patient;
 
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 
@@ -43,7 +46,13 @@ public class MessageTypesDemo {
 			MapMessage mapMessage = jmsContext.createMapMessage();
 			mapMessage.setBoolean("IsCreditAvailable", true);
 
-			producer.send(queue, mapMessage);
+			ObjectMessage objMessage = jmsContext.createMapMessage();
+			Patient patient = new Patient();
+			patient.setId(132);
+			patient.setName("Rohan");
+			objMessage.setObject(patient);
+
+			producer.send(queue, objMessage);
 
 			// System.out.println("<------ Bytes Message ------>");
 			// BytesMessage messageReceived = (BytesMessage) jmsContext.createConsumer(queue).receive(5000);
@@ -55,9 +64,15 @@ public class MessageTypesDemo {
 			// System.out.println(messageReceived.readBoolean());
 			// System.out.println(messageReceived.readFloat());
 
-			System.out.println("<------ Maps Message ------>");
-			MapMessage messageReceived = (MapMessage) jmsContext.createConsumer(queue).receive(5000);
-			System.out.println(messageReceived.getBoolean("IsCreditAvailable"));
+			// System.out.println("<------ Maps Message ------>");
+			// MapMessage messageReceived = (MapMessage) jmsContext.createConsumer(queue).receive(5000);
+			// System.out.println(messageReceived.getBoolean("IsCreditAvailable"));
+
+			System.out.println("<------ Object Message ------>");
+			ObjectMessage messageReceived = (ObjectMessage) jmsContext.createConsumer(queue).receive(5000);
+			Patient object = (Patient) messageReceived.getObject();
+			System.out.println(object.getId());
+			System.out.println(object.getName());
 
 			
 		}
