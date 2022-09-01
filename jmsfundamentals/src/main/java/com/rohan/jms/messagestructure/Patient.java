@@ -15,7 +15,7 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
