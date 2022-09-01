@@ -19,7 +19,7 @@ import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 
 public class MessageTypesDemo {
 
-	public static void main(String[] args) throws NamingException, InterruptedException {
+	public static void main(String[] args) throws NamingException, InterruptedException, JMSException {
 		
 		InitialContext context = new InitialContext();
 		Queue queue = (Queue) context.lookup("queue/myQueue");
