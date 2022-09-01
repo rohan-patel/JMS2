@@ -21,7 +21,7 @@ public class MessageExpirationDemo {
 	public static void main(String[] args) throws NamingException, InterruptedException {
 		
 		InitialContext context = new InitialContext();
-		Queue queue = (Queue) context.lookup("queue/myQueue");
+		Queue expiryQueue = (Queue) context.lookup("queue/expiryQueue");
 		
 		try(ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
 				JMSContext jmsContext = cf.createContext()) {
@@ -34,6 +34,8 @@ public class MessageExpirationDemo {
 
 			Message messageReceived = jmsContext.createConsumer(queue).receive(5000);
 			System.out.println(messageReceived);
+
+			System.out.println(jmsContext.createConsumer(expiryQueue).receiveBody(String.class));
 			
 		}
 		
