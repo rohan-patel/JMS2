@@ -28,7 +28,7 @@ public class RequestReplyDemo {
 			producer.send(queue, message);
 
 			JMSConsumer consumer = jmsContext.createConsumer(queue);
-			TextMessage messageReceived = (TextMessage) consumer.receive(String.class);
+			TextMessage messageReceived = (TextMessage) consumer.receive();
 			System.out.println(messageReceived.getText());
 
 			JMSProducer replyProducer = jmsContext.createProducer();
