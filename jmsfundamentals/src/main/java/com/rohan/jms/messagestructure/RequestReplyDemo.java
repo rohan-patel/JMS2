@@ -22,7 +22,7 @@ public class RequestReplyDemo {
 				JMSContext jmsContext = cf.createContext()) {
 			
 			JMSProducer producer = jmsContext.createProducer();
-			producer.setJMSReplyTo();
+			// producer.setJMSReplyTo();
 			TextMessage message = jmsContext.createTextMessage("Arise, Awake and Stop not till he goal is not reached");
 			message.setJMSReplyTo(replyQueue);
 			producer.send(queue, message);
