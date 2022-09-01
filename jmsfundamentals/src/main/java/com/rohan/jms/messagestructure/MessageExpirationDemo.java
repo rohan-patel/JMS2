@@ -21,6 +21,7 @@ public class MessageExpirationDemo {
 	public static void main(String[] args) throws NamingException, InterruptedException {
 		
 		InitialContext context = new InitialContext();
+		Queue queue = (Queue) context.lookup("queue/myQueue");
 		Queue expiryQueue = (Queue) context.lookup("queue/expiryQueue");
 		
 		try(ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
