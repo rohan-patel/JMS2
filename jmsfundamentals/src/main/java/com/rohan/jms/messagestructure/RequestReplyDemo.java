@@ -9,6 +9,10 @@ import javax.jms.JMSException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import java.util.Map;
+import java.util.HashMap;
+
+
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 
 public class RequestReplyDemo {
@@ -32,6 +36,10 @@ public class RequestReplyDemo {
 			producer.send(queue, message);
 			System.out.println(message.getJMSMessageID());
 
+			// A map to store all the request messages and their messageID
+			Map<String, TextMessage> requestMessages = new HashMap<>();
+			requestMessages.put(message.getJMSMessageID(), message);
+
 			// App B; creating Consumer to get the request
 			JMSConsumer consumer = jmsContext.createConsumer(queue);
 			TextMessage messageReceived = (TextMessage) consumer.receive();
@@ -48,6 +56,8 @@ public class RequestReplyDemo {
 			// System.out.println(replyConsumer.receiveBody(String.class));
 			TextMessage replyReceived = (TextMessage) replyConsumer.receive();
 			System.out.println(replyReceived.getJMSCorrelationID());
+			System.out.println(requestMessages.get(replyReceived.getJMSCorrelationID()).getText());
+
 
 		}
 		
