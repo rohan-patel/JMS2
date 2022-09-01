@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 
-public class MessageDelayDemo {
+public class MessagePropertiesDemo {
 
 	public static void main(String[] args) throws NamingException, InterruptedException {
 		
