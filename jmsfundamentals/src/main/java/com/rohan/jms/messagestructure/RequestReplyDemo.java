@@ -5,6 +5,7 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSProducer;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
+import javax.jms.JMSException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
