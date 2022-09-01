@@ -57,7 +57,7 @@ public class MessageTypesDemo {
 
 			System.out.println("<------ Maps Message ------>");
 			StreamMessage messageReceived = (StreamMessage) jmsContext.createConsumer(queue).receive(5000);
-			System.out.println(messageReceived.getBoolean());
+			System.out.println(messageReceived.getBoolean("IsCreditAvailable"));
 
 			
 		}
