@@ -46,7 +46,7 @@ public class MessageTypesDemo {
 			MapMessage mapMessage = jmsContext.createMapMessage();
 			mapMessage.setBoolean("IsCreditAvailable", true);
 
-			ObjectMessage objMessage = jmsContext.createMapMessage();
+			ObjectMessage objMessage = jmsContext.createObjectMessage();
 			Patient patient = new Patient();
 			patient.setId(132);
 			patient.setName("Rohan");
