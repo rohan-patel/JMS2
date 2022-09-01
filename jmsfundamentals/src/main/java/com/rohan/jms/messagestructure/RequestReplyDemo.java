@@ -22,21 +22,32 @@ public class RequestReplyDemo {
 		try(ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
 				JMSContext jmsContext = cf.createContext()) {
 			
+			// We have 2 apps; App A, App B
+
+			// App A; creating producer to send request
 			JMSProducer producer = jmsContext.createProducer();
 			// producer.setJMSReplyTo();
 			TextMessage message = jmsContext.createTextMessage("Arise, Awake and Stop not till he goal is not reached");
 			message.setJMSReplyTo(replyQueue);
 			producer.send(queue, message);
+			System.out.println(message.getJMSMessageID());
 
+			// App B; creating Consumer to get the request
 			JMSConsumer consumer = jmsContext.createConsumer(queue);
 			TextMessage messageReceived = (TextMessage) consumer.receive();
 			System.out.println(messageReceived.getText());
 
+			// App B; creating producer for replying to the App A
 			JMSProducer replyProducer = jmsContext.createProducer();
-			replyProducer.send(messageReceived.getJMSReplyTo(), "You are awesome!");
+			TextMessage replyMessage = jmsContext.createTextMessage("You are awesome!");
+			replyMessage.setJMSCorrelationID(messageReceived.getJMSMessageID());
+			replyProducer.send(messageReceived.getJMSReplyTo(), replyMessage);
 
+			// App A; creating Consumer to get the reply from App B
 			JMSConsumer replyConsumer = jmsContext.createConsumer(replyQueue);
-			System.out.println(replyConsumer.receiveBody(String.class));
+			// System.out.println(replyConsumer.receiveBody(String.class));
+			TextMessage replyReceived = (TextMessage) replyConsumer.receive();
+			System.out.println(replyReceived.getJMSCorrelationID());
 
 		}
 		
